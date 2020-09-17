@@ -13,10 +13,10 @@ class MyTheme {
     primarySwatch: createMaterialColor(Color(0xFF118AB2)),
     canvasColor: Color.fromRGBO(255, 255, 255, 1),//背景色233, 196, 106
     textTheme: TextTheme(
-      body1: TextStyle(fontSize: bodySize,color: norTextColor),
-      display1: TextStyle(fontSize: smallSize,color: norTextColor),
-      display2: TextStyle(fontSize: mediuSize,color: norTextColor),
-      display3: TextStyle(fontSize: largeSize,color: norTextColor),
+      bodyText1: TextStyle(fontSize: bodySize,color: norTextColor),
+      headline4: TextStyle(fontSize: smallSize,color: norTextColor),
+      headline3: TextStyle(fontSize: mediuSize,color: norTextColor),
+      headline2: TextStyle(fontSize: largeSize,color: norTextColor),
     )
   );
   static final Color darkTextColor = Colors.blue;
@@ -24,10 +24,10 @@ class MyTheme {
     primarySwatch: Colors.grey,
     canvasColor: Color.fromRGBO(87, 117, 144, 1),
     textTheme: TextTheme(
-      body1: TextStyle(fontSize: smallSize,color: darkTextColor),
-      display1: TextStyle(fontSize: smallSize,color: norTextColor),
-      display2: TextStyle(fontSize: mediuSize,color: norTextColor),
-      display3: TextStyle(fontSize: largeSize,color: norTextColor),
+      bodyText1: TextStyle(fontSize: smallSize,color: darkTextColor),
+      headline4: TextStyle(fontSize: smallSize,color: norTextColor),
+      headline3: TextStyle(fontSize: mediuSize,color: norTextColor),
+      headline2: TextStyle(fontSize: largeSize,color: norTextColor),
     )
   );
 }

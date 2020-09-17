@@ -1,3 +1,4 @@
+import 'package:delicious/ui/pages/search/index.dart';
 import 'package:flutter/material.dart';
 
 import 'item.dart';
@@ -28,6 +29,13 @@ class _MyMainPageState extends State<MyMainPage> {
             _current = index;
           });
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(MySearch.routerName);
+        },
+        child: Icon(Icons.search),
       ),
     );
   }

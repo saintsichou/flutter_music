@@ -1,5 +1,6 @@
 import 'package:delicious/core/http/home_api.dart';
 import 'package:delicious/core/model/home_rank_model.dart';
+import 'package:delicious/ui/pages/music/index.dart';
 import 'package:flutter/material.dart';
 
 class MusicList extends StatelessWidget {
@@ -14,9 +15,12 @@ class MusicList extends StatelessWidget {
             final rankLists = snapshot.data;
             return ListView.builder(
                 itemBuilder: (BuildContext ctx, int index) {
+                  final rankthis = rankLists[index];
                   return GestureDetector(
                       onTap: () {
-                        print('${rankLists[index]}');
+                        // print('--------${rankLists[index]}----------');
+                        Navigator.of(context).pushNamed(MyMusic.routerName,
+                            arguments: rankthis);
                       },
                       child: ListTile(
                         leading: Image.network(

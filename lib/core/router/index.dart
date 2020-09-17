@@ -1,10 +1,14 @@
 import 'package:delicious/ui/pages/main/main.dart';
+import 'package:delicious/ui/pages/music/index.dart';
+import 'package:delicious/ui/pages/search/index.dart';
 import 'package:flutter/material.dart';
 
 class MyRouter {
   static final String initalRoute = MyMainPage.routerName;
   static final Map<String, WidgetBuilder> routes = {
-    MyMainPage.routerName:(ctx)=>MyMainPage()
+    MyMainPage.routerName:(ctx)=>MyMainPage(),
+    MyMusic.routerName:(ctx)=>MyMusic(),
+    MySearch.routerName:(ctx)=>MySearch(),
   };
   static final RouteFactory onGenerateRoute = (RouteSettings settings) {
     // 统一处理

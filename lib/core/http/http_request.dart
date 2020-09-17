@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class HttpRequest {
   static BaseOptions options = BaseOptions(
-    baseUrl: "",
+    baseUrl: "https://m.music.migu.cn/migu/remoting/",
     connectTimeout: 5000,
   );
   static final Dio dio = Dio(options);
