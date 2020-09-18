@@ -1,8 +1,12 @@
+import 'dart:async';
 import 'dart:math';
-
+import 'package:delicious/core/class/singer_list.dart';
 import 'package:delicious/core/http/search_api.dart';
 import 'package:delicious/core/model/search/search_hot_model.dart';
+import 'package:delicious/core/model/search/search_result_model.dart';
+import 'package:delicious/ui/shared/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'music_info.dart';
 
 class SearchContent extends StatefulWidget {
   SearchContent({Key key}) : super(key: key);
@@ -25,6 +29,13 @@ class _SearchContentState extends State<SearchContent> {
     });
   }
 
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   GlobalEventBus().event.destroy();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,10 +46,14 @@ class _SearchContentState extends State<SearchContent> {
       child: Column(
         children: [
           searchInput(),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           hot(),
-          SizedBox(height: 10,),
-          musicInfo(),
+          SizedBox(
+            height: 10,
+          ),
+          MusicInfo(),
         ],
       ),
     );
@@ -50,13 +65,13 @@ class _SearchContentState extends State<SearchContent> {
       width: double.infinity,
       child: TextField(
         onChanged: (value) {
-          print(value);
+          // GlobalEventBus().event.fire('');
         },
         onSubmitted: (value) {
-          print('value');
-          print(value);
           SearchApi.getSearchSinger(20, value, 1).then((value) {
-            print(value);
+            setState(() {
+              GlobalEventBus().event.fire(SingerList(value));
+            });
           });
         },
         decoration: InputDecoration(
@@ -72,6 +87,10 @@ class _SearchContentState extends State<SearchContent> {
         ),
       ),
     );
+  }
+
+  void countDown(handle) {
+    Timer timer = new Timer(new Duration(seconds: 2), handle);
   }
 
   Widget hot() {
@@ -94,5 +113,14 @@ class _SearchContentState extends State<SearchContent> {
       children: tiles,
     );
     return content;
+  }
+
+  Widget tips() {
+    return Container(
+      child: Text(
+        '搜索试试',
+        style: Theme.of(context).textTheme.headline2,
+      ),
+    );
   }
 }

@@ -23,24 +23,32 @@ class _ImageReplaceState extends State<ImageReplace> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('-------${widget.url}');
-    _img = Image.network(
-      widget.url,
-      width: widget.w,
-      height: widget.h,
-    );
-    var reslove = _img.image.resolve(ImageConfiguration.empty);
-    reslove.addListener(ImageStreamListener((_, __) {},
-        onError: (dynamic exception, StackTrace stacktrace) {
-      //加载失败
-      setState(() {
-        _img = Image.asset(
-          widget.defalutImg,
-          width: widget.w,
-          height: widget.h,
-        );
-      });
-    }));
+    // print('-------${widget.url}');
+    if (widget.url != null) {
+        _img = Image.network(
+        widget.url,
+        width: widget.w,
+        height: widget.h,
+      );
+      var reslove = _img.image.resolve(ImageConfiguration.empty);
+      reslove.addListener(ImageStreamListener((_, __) {},
+          onError: (dynamic exception, StackTrace stacktrace) {
+        //加载失败
+        setState(() {
+          _img = Image.asset(
+            widget.defalutImg,
+            width: widget.w,
+            height: widget.h,
+          );
+        });
+      }));
+    }else{
+      _img = Image.asset(
+            widget.defalutImg,
+            width: widget.w,
+            height: widget.h,
+          );
+    }
   }
 
   @override

@@ -1,20 +1,58 @@
+import 'package:delicious/core/class/singer_list.dart';
+import 'package:delicious/core/model/search/search_result_model.dart';
+import 'package:delicious/ui/shared/event_bus.dart';
+import 'package:delicious/ui/widgets/img_replace.dart';
 import 'package:flutter/material.dart';
-class MusicInfo extends StatelessWidget {
+
+class MusicInfo extends StatefulWidget {
   const MusicInfo({Key key}) : super(key: key);
+
+  @override
+  _MusicInfoState createState() => _MusicInfoState();
+}
+
+class _MusicInfoState extends State<MusicInfo> {
+  List singerLists = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    GlobalEventBus().event.on<SingerList>().listen((event) {
+      print(event);
+      List singerlists = event.singerlists;
+      singerLists.length > 0 ? singerLists = [] : '';
+      singerLists.addAll(singerlists);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-          child: ListView.builder(
-          itemCount: 10,
-          shrinkWrap: true,
-          itemBuilder: (ctx, index) {
-            return ListTile(
-              leading: Image.network('src'),
-              title: Text('${index}data'),
-              subtitle: Text('data'),
-            );
-          }),
+        child: singerLists == null
+            ? tips()
+            : ListView.builder(
+                itemCount: singerLists.length,
+                shrinkWrap: true,
+                itemBuilder: (ctx, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      print('${singerLists[index]}');
+                    },
+                    child: ListTile(
+                      leading: ImageReplace(url: singerLists[index].cover),
+                      title: Text(singerLists[index].title),
+                      subtitle: Text(singerLists[index].singerName),
+                    ),
+                  );
+                }));
+  }
+
+  Widget tips() {
+    return Container(
+      child: Text(
+        '搜索试试',
+        style: Theme.of(context).textTheme.headline2,
+      ),
     );
   }
 }
