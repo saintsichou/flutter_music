@@ -46,7 +46,6 @@ class _MusicContentState extends State<MusicContent> {
             ),
           ),
         ),
-        // musicInfo(_music)
       ],
     );
   }

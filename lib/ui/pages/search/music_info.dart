@@ -2,6 +2,7 @@ import 'package:delicious/core/class/singer_list.dart';
 import 'package:delicious/core/model/search/search_result_model.dart';
 import 'package:delicious/ui/shared/event_bus.dart';
 import 'package:delicious/ui/widgets/img_replace.dart';
+import 'package:delicious/ui/widgets/songs_detail.dart';
 import 'package:flutter/material.dart';
 
 class MusicInfo extends StatefulWidget {
@@ -37,6 +38,7 @@ class _MusicInfoState extends State<MusicInfo> {
                   return GestureDetector(
                     onTap: () {
                       print('${singerLists[index]}');
+                      Navigator.of(context).pushNamed(SongsDetail.routerName,arguments:singerLists[index] );
                     },
                     child: ListTile(
                       leading: ImageReplace(url: singerLists[index].cover),

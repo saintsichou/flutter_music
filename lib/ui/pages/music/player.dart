@@ -50,7 +50,7 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
     mode = PlayerMode.MEDIA_PLAYER;
     //初始化
     _audioPlayer = AudioPlayer(mode: mode);
-
+    _play();
     _durationSubscription = _audioPlayer.onDurationChanged.listen((duration) {
       setState(() => _duration = duration);
 
@@ -151,54 +151,53 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:Column(
-          children: <Widget>[
-            Text(
-              _position != null
-                  ? '${_positionText ?? ''} / ${_durationText ?? ''}'
-                  : _duration != null ? _durationText : '',
-            ),
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Stack(
-                children: [
-                  Slider(
-                    onChanged: (v) {
-                      final Position = v * _duration.inMilliseconds;
-                      _audioPlayer
-                          .seek(Duration(milliseconds: Position.round()));
-                    },
-                    value: (_position != null &&
-                            _duration != null &&
-                            _position.inMilliseconds > 0 &&
-                            _position.inMilliseconds < _duration.inMilliseconds)
-                        ? _position.inMilliseconds / _duration.inMilliseconds
-                        : 0.0,
-                  ),
-                ],
+        child: Column(
+      children: <Widget>[
+        Text(
+          _position != null
+              ? '${_positionText ?? ''} / ${_durationText ?? ''}'
+              : _duration != null ? _durationText : '',
+        ),
+        Padding(
+          padding: EdgeInsets.all(12.0),
+          child: Stack(
+            children: [
+              Slider(
+                onChanged: (v) {
+                  final Position = v * _duration.inMilliseconds;
+                  _audioPlayer.seek(Duration(milliseconds: Position.round()));
+                },
+                value: (_position != null &&
+                        _duration != null &&
+                        _position.inMilliseconds > 0 &&
+                        _position.inMilliseconds < _duration.inMilliseconds)
+                    ? _position.inMilliseconds / _duration.inMilliseconds
+                    : 0.0,
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(Icons.play_arrow),
-                    onPressed: () {
-                      _play();
-                    }),
-                IconButton(
-                    icon: Icon(Icons.pause),
-                    onPressed: () {
-                      _pause();
-                    }),
-                IconButton(
-                    icon: Icon(Icons.stop),
-                    onPressed: () {
-                      _stop();
-                    }),
-              ],
-            )
+            ],
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+                icon: Icon(Icons.play_arrow),
+                onPressed: () {
+                  _play();
+                }),
+            IconButton(
+                icon: Icon(Icons.pause),
+                onPressed: () {
+                  _pause();
+                }),
+            IconButton(
+                icon: Icon(Icons.stop),
+                onPressed: () {
+                  _stop();
+                }),
           ],
-        ));
+        )
+      ],
+    ));
   }
 }
