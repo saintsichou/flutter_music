@@ -1,4 +1,5 @@
 import 'package:delicious/core/http/search_api.dart';
+import 'package:delicious/ui/shared/until.dart';
 import 'package:flutter/material.dart';
 
 class KeywordShow extends StatefulWidget {
@@ -27,7 +28,8 @@ class KeywordShowState extends State<KeywordShow> {
               itemBuilder: (ctx, index) {
                 return Container(
                   padding: EdgeInsets.all(10),
-                  child: hightlight(_keyword, _list[index].singer),
+                  child: hightlight(
+                      _keyword, _list[index].singer, _list[index].name),
                 );
               },
               separatorBuilder: (context, index) {
@@ -36,26 +38,33 @@ class KeywordShowState extends State<KeywordShow> {
             ),
           )
         : Container(
-          alignment: Alignment.center,
+            alignment: Alignment.center,
             child: Text('搜索试试~'),
           );
   }
 
-  Widget hightlight(String keyword, String str) {
+  Widget hightlight(String keyword, String str, String name) {
     final wordList = str.split(keyword);
     List<Widget> textList = [];
+    String textname = name;
+    
+    textname = textname.length >= 10 ? textname.substring(0, 10) + '...' : textname;
     TextStyle highlightStyle = TextStyle(color: Colors.red);
     TextStyle normalStyle = TextStyle(color: Colors.black);
     for (int i = 0; i < wordList.length; i++) {
       if ((i % 2) == 1) {
         textList.add(Text(keyword, style: highlightStyle));
       }
-      String val = wordList[i];
+      String val = wordList[i].length >= 10 ? wordList[i].substring(0, 10) : wordList[i];;
       if (val != '' && val.length > 0) {
         textList.add(Text(val, style: normalStyle));
+        textList.add(Expanded(child: Text("/${textname}", style: normalStyle)));
       }
     }
+    print(textList);
+    // textList = textList.map((e) => null)
     Widget row = Row(children: textList);
+
     return row;
   }
 
@@ -63,11 +72,12 @@ class KeywordShowState extends State<KeywordShow> {
     setState(() {
       _keyword = key;
       if (_keyword != '') {
-        _list = [];
+        // _list = [];
         SearchApi.getChangeKey(key).then((value) {
           print('=============${_keyword}');
           // print('=============${value}');
           _list.addAll(value);
+          print('=============${_list}');
         });
       } else {
         _list = [];

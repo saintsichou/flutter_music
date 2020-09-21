@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:delicious/core/http/search_api.dart';
 import 'package:delicious/core/model/search/search_hot_model.dart';
 import 'package:flutter/material.dart';
+import 'hot_word.dart';
 import 'keywords.dart';
 
 class SearchContent extends StatefulWidget {
@@ -40,7 +41,7 @@ class _SearchContentState extends State<SearchContent> {
           SizedBox(
             height: 10,
           ),
-          hot(),
+          HotWord(hotLists),
           SizedBox(
             height: 10,
           ),
@@ -58,10 +59,11 @@ class _SearchContentState extends State<SearchContent> {
       width: double.infinity,
       child: TextField(
         onChanged: (key) {
-            textKey.currentState.onPressed(key);
+          textKey.currentState.onPressed(key);
         },
         onSubmitted: (value) {
           SearchApi.getSearchSinger(20, value, 1).then((value) {
+            print(value);
             setState(() {});
           });
         },
@@ -78,43 +80,5 @@ class _SearchContentState extends State<SearchContent> {
         ),
       ),
     );
-  }
-
-  void countDown(int sec, Function handle) {
-    Timer timer = new Timer(new Duration(seconds: sec), handle);
-  }
-
-  Widget hot() {
-    List<Widget> tiles = []; //先建一个数组用于存放循环生成的widget
-    Widget content;
-    for (var i = 0; i < hotLists.length; i++) {
-      tiles.add(RaisedButton(
-        color: Color.fromRGBO(Random().nextInt(255), Random().nextInt(255),
-            Random().nextInt(255), .3),
-        textColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0)
-        ),
-        onPressed: () {
-          print('${hotLists[i].txtCotent}');
-        },
-        child: Text(hotLists[i].txtCotent),
-      ));
-    }
-    content = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('推荐搜索',style: TextStyle(fontSize: 22),),
-          ),
-        Wrap(
-          spacing: 2, //主轴上子控件的间距
-          runSpacing: 5,
-          children: tiles,
-        ),
-      ],
-    );
-    return content;
   }
 }
