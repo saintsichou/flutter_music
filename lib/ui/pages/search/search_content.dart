@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:delicious/core/class/singer_list.dart';
 import 'package:delicious/core/http/search_api.dart';
 import 'package:delicious/core/model/search/search_hot_model.dart';
-import 'package:delicious/core/model/search/search_result_model.dart';
-import 'package:delicious/ui/shared/event_bus.dart';
 import 'package:flutter/material.dart';
-import 'music_info.dart';
+import 'keywords.dart';
 
 class SearchContent extends StatefulWidget {
   SearchContent({Key key}) : super(key: key);
@@ -18,9 +15,10 @@ class SearchContent extends StatefulWidget {
 class _SearchContentState extends State<SearchContent> {
   final List<Hot> hotLists = [];
 
+  GlobalKey<KeywordShowState> textKey = GlobalKey();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SearchApi.getSearchHot().then((value) {
       setState(() {
@@ -28,13 +26,6 @@ class _SearchContentState extends State<SearchContent> {
       });
     });
   }
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   GlobalEventBus().event.destroy();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +44,9 @@ class _SearchContentState extends State<SearchContent> {
           SizedBox(
             height: 10,
           ),
-          MusicInfo(),
+          KeywordShow(
+            key: textKey,
+          )
         ],
       ),
     );
@@ -64,14 +57,12 @@ class _SearchContentState extends State<SearchContent> {
       height: 60,
       width: double.infinity,
       child: TextField(
-        onChanged: (value) {
-          // GlobalEventBus().event.fire('');
+        onChanged: (key) {
+            textKey.currentState.onPressed(key);
         },
         onSubmitted: (value) {
           SearchApi.getSearchSinger(20, value, 1).then((value) {
-            setState(() {
-              GlobalEventBus().event.fire(SingerList(value));
-            });
+            setState(() {});
           });
         },
         decoration: InputDecoration(
@@ -89,8 +80,8 @@ class _SearchContentState extends State<SearchContent> {
     );
   }
 
-  void countDown(handle) {
-    Timer timer = new Timer(new Duration(seconds: 2), handle);
+  void countDown(int sec, Function handle) {
+    Timer timer = new Timer(new Duration(seconds: sec), handle);
   }
 
   Widget hot() {
@@ -101,26 +92,29 @@ class _SearchContentState extends State<SearchContent> {
         color: Color.fromRGBO(Random().nextInt(255), Random().nextInt(255),
             Random().nextInt(255), .3),
         textColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18.0)
+        ),
         onPressed: () {
           print('${hotLists[i].txtCotent}');
         },
         child: Text(hotLists[i].txtCotent),
       ));
     }
-    content = Wrap(
-      spacing: 2, //主轴上子控件的间距
-      runSpacing: 5,
-      children: tiles,
+    content = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('推荐搜索',style: TextStyle(fontSize: 22),),
+          ),
+        Wrap(
+          spacing: 2, //主轴上子控件的间距
+          runSpacing: 5,
+          children: tiles,
+        ),
+      ],
     );
     return content;
-  }
-
-  Widget tips() {
-    return Container(
-      child: Text(
-        '搜索试试',
-        style: Theme.of(context).textTheme.headline2,
-      ),
-    );
   }
 }

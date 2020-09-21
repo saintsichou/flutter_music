@@ -19,7 +19,7 @@ class _MusicInfoState extends State<MusicInfo> {
     // TODO: implement initState
     super.initState();
     GlobalEventBus().event.on<SingerList>().listen((event) {
-      print(event);
+      // print(event);
       List singerlists = event.singerlists;
       singerLists.length > 0 ? singerLists = [] : '';
       singerLists.addAll(singerlists);
