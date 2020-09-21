@@ -11,7 +11,7 @@ class ImageReplace extends StatefulWidget {
       @required this.url,
       this.w,
       this.h,
-      this.defalutImg = 'assets/images/bg.jpeg'})
+      this.defalutImg = 'assets/images/bg.jpg'})
       : super(key: key);
   @override
   _ImageReplaceState createState() => _ImageReplaceState();

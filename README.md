@@ -1,16 +1,20 @@
-# delicious
+# deliciousmusic
 
-A new Flutter project.
+A new Flutter project.一款flutter音乐播放项目
 
-## Getting Started
+## 结构划分
+ `flutter run`
+  ### 结构划分
+  1. pages 
+  2. widgets
+  3. services/http       ui
+  4. router              core
+  5. viewmodel
+  6. model
+  7. shared 
 
-This project is a starting point for a Flutter application.
+## 包含的功能
 
-A few resources to get you started if this is your first Flutter project:
+1. EventBus 总线相邻组件的传值
+2. GlobalKey 传值
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
