@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:delicious/core/http/search_api.dart';
 import 'package:delicious/core/model/search/search_hot_model.dart';
+import 'package:delicious/ui/pages/songs/index.dart';
 import 'package:flutter/material.dart';
 import 'hot_word.dart';
 import 'keywords.dart';
@@ -62,19 +63,16 @@ class _SearchContentState extends State<SearchContent> {
           textKey.currentState.onPressed(key);
           if (key != '') {
             setState(() {
-                this.flag = false;
+              this.flag = false;
             });
-          }else{
+          } else {
             setState(() {
-                this.flag = true;
+              this.flag = true;
             });
           }
         },
         onSubmitted: (value) {
-          SearchApi.getSearchSinger(20, value, 1).then((value) {
-            print(value);
-            setState(() {});
-          });
+            Navigator.of(context).pushNamed(MySongs.routerName,arguments: value);
         },
         decoration: InputDecoration(
           fillColor: Color(0x30cccccc),

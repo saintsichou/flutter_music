@@ -1,4 +1,5 @@
 import 'package:delicious/core/http/search_api.dart';
+import 'package:delicious/ui/pages/songs/index.dart';
 import 'package:delicious/ui/shared/until.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class KeywordShowState extends State<KeywordShow> {
           return GestureDetector(
             onTap: () {
               print(_list[index]);
-              // Navigator.of(context).pushNamed(routeName)
+              Navigator.of(context).pushNamed(MySongs.routerName,arguments: _list[index].singer);
             },
             child: Container(
               padding: EdgeInsets.all(10),

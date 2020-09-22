@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:delicious/ui/pages/songs/index.dart';
 import 'package:flutter/material.dart';
 
 class HotWord extends StatefulWidget {
@@ -13,11 +14,11 @@ class HotWord extends StatefulWidget {
 class _HotWordState extends State<HotWord> {
   @override
   Widget build(BuildContext context) {
-    return hots(widget.hotLists);
+    return hots(context,widget.hotLists);
   }
 }
 
-Widget hots(hotLists) {
+Widget hots(context,hotLists) {
   List<Widget> tiles = []; //先建一个数组用于存放循环生成的widget
   Widget content;
   for (var i = 0; i < hotLists.length; i++) {
@@ -30,6 +31,7 @@ Widget hots(hotLists) {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
       onPressed: () {
         print('${hotLists[i].txtCotent}');
+        Navigator.of(context).pushNamed(MySongs.routerName,arguments: hotLists[i].txtCotent);
       },
       child: Text(hotLists[i].txtCotent),
     ));
