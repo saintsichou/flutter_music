@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:delicious/core/http/search_api.dart';
 import 'package:delicious/core/model/search/search_key_model.dart';
+import 'package:delicious/ui/widgets/songs_detail.dart';
 import 'package:flutter/material.dart';
 
 class SongsContent extends StatefulWidget {
@@ -94,20 +95,26 @@ class _SongsContentState extends State<SongsContent> {
             if (index == songlist.length) {
               return _loadMoreWidget();
             } else {
-              return ListTile(
-                leading: Text(
-                  '${index + 1}',
-                  style: TextStyle(
-                      color: Color.fromRGBO(Random().nextInt(255),
-                          Random().nextInt(255), Random().nextInt(255), 1),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                title: Text(songlist[index].title),
-                subtitle: Text(songlist[index].artist),
-                trailing: Icon(
-                  Icons.play_circle_outline,
-                  color: Color.fromRGBO(189, 178, 255, 1),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(SongsDetail.routerName,
+                      arguments: songlist[index]);
+                },
+                child: ListTile(
+                  leading: Text(
+                    '${index + 1}',
+                    style: TextStyle(
+                        color: Color.fromRGBO(Random().nextInt(255),
+                            Random().nextInt(255), Random().nextInt(255), 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  title: Text(songlist[index].title),
+                  subtitle: Text(songlist[index].artist),
+                  trailing: Icon(
+                    Icons.play_circle_outline,
+                    color: Color.fromRGBO(189, 178, 255, 1),
+                  ),
                 ),
               );
             }
@@ -115,7 +122,7 @@ class _SongsContentState extends State<SongsContent> {
           separatorBuilder: (ctx, index) {
             return Divider();
           },
-          itemCount: songlist.length+1),
+          itemCount: songlist.length + 1),
     );
   }
 
@@ -123,7 +130,7 @@ class _SongsContentState extends State<SongsContent> {
   Widget _loadMoreWidget() {
     return new Padding(
       padding: const EdgeInsets.all(15.0), // 外边距
-      child: new Center(child: new CircularProgressIndicator()),
+      child: Center(child: new CircularProgressIndicator()),
     );
   }
 }
