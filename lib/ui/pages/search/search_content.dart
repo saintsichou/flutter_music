@@ -15,7 +15,7 @@ class SearchContent extends StatefulWidget {
 
 class _SearchContentState extends State<SearchContent> {
   final List<Hot> hotLists = [];
-
+  bool flag = true;
   GlobalKey<KeywordShowState> textKey = GlobalKey();
 
   @override
@@ -41,7 +41,7 @@ class _SearchContentState extends State<SearchContent> {
           SizedBox(
             height: 10,
           ),
-          HotWord(hotLists),
+          flag ? HotWord(hotLists) : Text('搜索结果'),
           SizedBox(
             height: 10,
           ),
@@ -60,6 +60,15 @@ class _SearchContentState extends State<SearchContent> {
       child: TextField(
         onChanged: (key) {
           textKey.currentState.onPressed(key);
+          if (key != '') {
+            setState(() {
+                this.flag = false;
+            });
+          }else{
+            setState(() {
+                this.flag = true;
+            });
+          }
         },
         onSubmitted: (value) {
           SearchApi.getSearchSinger(20, value, 1).then((value) {

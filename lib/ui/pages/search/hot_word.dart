@@ -22,8 +22,10 @@ Widget hots(hotLists) {
   Widget content;
   for (var i = 0; i < hotLists.length; i++) {
     tiles.add(RaisedButton(
-      color: Color.fromRGBO(Random().nextInt(255), Random().nextInt(255),
-          Random().nextInt(255), .3),
+      // color: Color.fromRGBO(Random().nextInt(255), Random().nextInt(255),
+      //     Random().nextInt(255), 1),
+      // color: Color.fromRGBO(112, 0, 77,1),
+      color: Color.fromRGBO(232, 83, 67,1),
       textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
       onPressed: () {
