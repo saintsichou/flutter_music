@@ -31,7 +31,7 @@ Widget hots(context,hotLists) {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
       onPressed: () {
         print('${hotLists[i].txtCotent}');
-        Navigator.of(context).pushNamed(MySongs.routerName,arguments: hotLists[i].txtCotent);
+        Navigator.of(context).pushNamed(MySongs.routerName,arguments: {'text':hotLists[i].txtCotent});
       },
       child: Text(hotLists[i].txtCotent),
     ));

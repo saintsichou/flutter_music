@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       title: '寻味中国',
       theme: MyTheme.lightTheme,
       initialRoute: MyRouter.initalRoute,
-      routes: MyRouter.routes,
-      onGenerateRoute: MyRouter.onGenerateRoute,
+      // routes: MyRouter.routes,//静态路由
+      onGenerateRoute: MyRouter.onGenerateRoute,//动态路由
       onUnknownRoute: MyRouter.onUnknownRoute,
     );
   }

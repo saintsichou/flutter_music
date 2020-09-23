@@ -34,12 +34,27 @@ class _SongsContentState extends State<SongsContent> {
       // print(_scrollController.position.pixels);
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        print('objectobjectobjectobjectobjectobjectobject');
+        // print('objectobjectobjectobjectobjectobjectobject');
         _getMoreDate();
       }
     });
   }
 
+  //下拉刷新
+  Future<dynamic> _getFresh() async {
+    songlist = [];
+    this.page = 1;
+    return SearchApi.getSearchSinger(row, widget._searchKeyModel, page)
+        .then((value) {
+      print(value);
+      setState(() {
+        songlist.addAll(value);
+        isLoadmore = false;
+      });
+    });
+  }
+
+  //上拉加载更多
   Future _getMoreDate() async {
     if (!isLoadmore) {
       setState(() {
@@ -88,41 +103,50 @@ class _SongsContentState extends State<SongsContent> {
 
   Widget list() {
     return Expanded(
-      child: ListView.separated(
-          shrinkWrap: true, //shrinkWrap: 该属性将决定列表的长度是否仅包裹其内容的长度
-          controller: _scrollController,
-          itemBuilder: (ctx, index) {
-            if (index == songlist.length) {
-              return _loadMoreWidget();
-            } else {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(SongsDetail.routerName,
-                      arguments: songlist[index]);
-                },
-                child: ListTile(
-                  leading: Text(
-                    '${index + 1}',
-                    style: TextStyle(
-                        color: Color.fromRGBO(Random().nextInt(255),
-                            Random().nextInt(255), Random().nextInt(255), 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+      child: RefreshIndicator(
+        onRefresh: _getFresh,
+        child: ListView.separated(
+            shrinkWrap: true, //shrinkWrap: 该属性将决定列表的长度是否仅包裹其内容的长度
+            controller: _scrollController,
+            itemBuilder: (ctx, index) {
+              print(songlist[index]);
+              if (index == songlist.length) {
+                return _loadMoreWidget();
+              } else {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(SongsDetail.routerName, arguments: {
+                      'cover': songlist[index].cover,
+                      'title': songlist[index].songName,
+                      'subtitle': songlist[index].singerName,
+                      'mp3': songlist[index].mp3
+                    });
+                  },
+                  child: ListTile(
+                    leading: Text(
+                      '${index + 1}',
+                      style: TextStyle(
+                          color: Color.fromRGBO(Random().nextInt(255),
+                              Random().nextInt(255), Random().nextInt(255), 1),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    title: Text(songlist[index].title),
+                    subtitle: Text(songlist[index].artist),
+                    trailing: Icon(
+                      Icons.play_circle_outline,
+                      color: Color.fromRGBO(189, 178, 255, 1),
+                    ),
                   ),
-                  title: Text(songlist[index].title),
-                  subtitle: Text(songlist[index].artist),
-                  trailing: Icon(
-                    Icons.play_circle_outline,
-                    color: Color.fromRGBO(189, 178, 255, 1),
-                  ),
-                ),
-              );
-            }
-          },
-          separatorBuilder: (ctx, index) {
-            return Divider();
-          },
-          itemCount: songlist.length + 1),
+                );
+              }
+            },
+            separatorBuilder: (ctx, index) {
+              return Divider();
+            },
+            itemCount: songlist.length + 1),
+      ),
     );
   }
 

@@ -180,24 +180,24 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.play_arrow),
-                onPressed: () {
+                icon_btn(Icons.play_arrow, () {
                   _play();
                 }),
-            IconButton(
-                icon: Icon(Icons.pause),
-                onPressed: () {
+                icon_btn(Icons.pause, () {
                   _pause();
                 }),
-            IconButton(
-                icon: Icon(Icons.stop),
-                onPressed: () {
+                icon_btn(Icons.stop, () {
                   _stop();
-                }),
+                })
           ],
         )
       ],
     ));
+  }
+
+  Widget icon_btn(ico,Function handle) {
+    return IconButton(
+        icon: Icon(ico,color: Colors.white,),
+        onPressed:handle);
   }
 }

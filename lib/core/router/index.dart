@@ -8,16 +8,17 @@ import 'package:flutter/material.dart';
 class MyRouter {
   static final String initalRoute = MyMainPage.routerName;
   static final Map<String, WidgetBuilder> routes = {
-    MyMainPage.routerName:(ctx)=>MyMainPage(),
-    MyMusic.routerName:(ctx)=>MyMusic(),
-    MySearch.routerName:(ctx)=>MySearch(),
-    SongsDetail.routerName:(ctx)=>SongsDetail(),
-    MySongs.routerName:(ctx)=>MySongs(),
+    MyMainPage.routerName: (ctx) => MyMainPage(),
+    MyMusic.routerName: (ctx) => MyMusic(),
+    MySearch.routerName: (ctx) => MySearch(),
+    SongsDetail.routerName: (ctx, {arguments}) => SongsDetail(arguments: arguments),
+    MySongs.routerName: (ctx, {arguments}) => MySongs(arguments: arguments),
   };
   static final RouteFactory onGenerateRoute = (RouteSettings settings) {
     // 统一处理
     final String name = settings.name;
     final Function pageContentBuilder = routes[name];
+    print(name);
     if (pageContentBuilder != null) {
       if (settings.arguments != null) {
         final Route route = MaterialPageRoute(

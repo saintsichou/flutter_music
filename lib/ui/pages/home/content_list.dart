@@ -1,6 +1,6 @@
 import 'package:delicious/core/http/home_api.dart';
 import 'package:delicious/core/model/home_rank_model.dart';
-import 'package:delicious/ui/pages/music/index.dart';
+import 'package:delicious/ui/widgets/songs_detail.dart';
 import 'package:flutter/material.dart';
 
 class MusicList extends StatelessWidget {
@@ -18,9 +18,20 @@ class MusicList extends StatelessWidget {
                   final rankthis = rankLists[index];
                   return GestureDetector(
                       onTap: () {
-                        // print('--------${rankLists[index]}----------');
-                        Navigator.of(context).pushNamed(MyMusic.routerName,
-                            arguments: rankthis);
+                        // print('--------${rankLists[index]}----------');˚
+                        Navigator.of(context).pushNamed(SongsDetail.routerName,arguments: {
+                              'cover': rankthis.picS,
+                              'title': rankthis.songName,
+                              'subtitle': rankthis.relationTitle,
+                              'mp3':rankthis.listenUrl
+                        });
+                        //两种路由写法
+                        // Navigator.pushNamed(context, SongsDetail.routerName,
+                        //     arguments: {
+                        //       'cover': "123",
+                        //       'title': "${rankLists[index].songName}",
+                        //       'subtitle': "${rankLists[index].relationTitle}"
+                        //     });
                       },
                       child: ListTile(
                         leading: Image.network(
@@ -34,42 +45,3 @@ class MusicList extends StatelessWidget {
         });
   }
 }
-
-// class MusicList extends StatefulWidget {
-//   MusicList({Key key}) : super(key: key);
-
-//   @override
-//   _MusicListState createState() => _MusicListState();
-// }
-
-// class _MusicListState extends State<MusicList> {
-//   final List<Ranks> rankLists = [];
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     HomeApi.getRanksList().then((res) {
-//       setState(() {
-//         rankLists.addAll(res);
-//       });
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//         itemBuilder: (BuildContext ctx, int index) {
-//           return GestureDetector(
-//               onTap: () {
-//                 print('${rankLists[index]}');
-//               },
-//               child: ListTile(
-//                 leading: Image.network(
-//                     '${rankLists[index].picS}??${rankLists[index].picM}'),
-//                 title: Text('${rankLists[index].songName}'),
-//                 subtitle: Text('${rankLists[index].relationTitle}'),
-//               ));
-//         },
-//         itemCount: rankLists.length);
-//   }
-// }
