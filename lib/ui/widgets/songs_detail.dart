@@ -12,7 +12,7 @@ class SongsDetail extends StatelessWidget {
   static String routerName = 'songsDetail';
   @override
   Widget build(BuildContext context) {
-    print("----=====${arguments}");
+    // print("----=====${arguments}");
     // final _musicList = ModalRoute.of(context).settings.arguments as Ranks;
     return Scaffold(
       // appBar: AppBar(title: Text(_songs.title), backgroundColor: Colors.transparent,),

@@ -72,7 +72,7 @@ class _SearchContentState extends State<SearchContent> {
           }
         },
         onSubmitted: (value) {
-            Navigator.of(context).pushNamed(MySongs.routerName,arguments: value);
+            Navigator.of(context).pushNamed(MySongs.routerName,arguments: {'text':value});
         },
         decoration: InputDecoration(
           fillColor: Color(0x30cccccc),

@@ -29,7 +29,8 @@ class KeywordShowState extends State<KeywordShow> {
           return GestureDetector(
             onTap: () {
               print(_list[index]);
-              // Navigator.of(context).pushNamed(MySongs.routerName,arguments: _list[index].singer);
+              Navigator.of(context).pushNamed(MySongs.routerName,
+                  arguments: {"text":_list[index].singer});
             },
             child: Container(
               width: double.infinity,
