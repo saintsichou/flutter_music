@@ -29,6 +29,22 @@ class _ImageReplaceState extends State<ImageReplace> {
         widget.url,
         width: widget.w,
         height: widget.h,
+        frameBuilder: (
+          BuildContext context,
+          Widget child,
+          int frame,
+          bool wasSynchronouslyLoaded,
+        ) {
+          if (frame == null) {
+            return Image.asset(
+              'assets/images/bg.jpg',
+              height: 200,
+              width: 200,
+              fit: BoxFit.cover,
+            );
+          }
+          return child;
+        },
       );
       var reslove = _img.image.resolve(ImageConfiguration.empty);
       reslove.addListener(ImageStreamListener((_, __) {},

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:delicious/core/http/search_api.dart';
-import 'package:delicious/core/model/search/search_key_model.dart';
 import 'package:delicious/ui/widgets/songs_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -109,7 +108,7 @@ class _SongsContentState extends State<SongsContent> {
             shrinkWrap: true, //shrinkWrap: 该属性将决定列表的长度是否仅包裹其内容的长度
             controller: _scrollController,
             itemBuilder: (ctx, index) {
-              print(songlist[index]);
+              // print(songlist[index]);
               if (index == songlist.length) {
                 return _loadMoreWidget();
               } else {
@@ -145,7 +144,7 @@ class _SongsContentState extends State<SongsContent> {
             separatorBuilder: (ctx, index) {
               return Divider();
             },
-            itemCount: songlist.length + 1),
+            itemCount: songlist.length+1),
       ),
     );
   }

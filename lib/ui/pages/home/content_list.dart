@@ -18,11 +18,11 @@ class MusicList extends StatelessWidget {
                   final rankthis = rankLists[index];
                   return GestureDetector(
                       onTap: () {
-                        // print('--------${rankLists[index]}----------');˚
+                        print('--------${rankLists[index]}----------');
                         Navigator.of(context).pushNamed(SongsDetail.routerName,arguments: {
                               'cover': rankthis.picS,
                               'title': rankthis.songName,
-                              'subtitle': rankthis.relationTitle,
+                              'subtitle': rankthis.singerName[0],
                               'mp3':rankthis.listenUrl
                         });
                         //两种路由写法

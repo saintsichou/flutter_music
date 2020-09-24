@@ -9,7 +9,7 @@ class MyRouter {
   static final String initalRoute = MyMainPage.routerName;
   static final Map<String, WidgetBuilder> routes = {
     MyMainPage.routerName: (ctx) => MyMainPage(),
-    MyMusic.routerName: (ctx) => MyMusic(),
+    // MyMusic.routerName: (ctx) => MyMusic(),
     MySearch.routerName: (ctx) => MySearch(),
     SongsDetail.routerName: (ctx, {arguments}) => SongsDetail(arguments: arguments),
     MySongs.routerName: (ctx, {arguments}) => MySongs(arguments: arguments),

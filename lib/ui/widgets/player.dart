@@ -61,10 +61,10 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
 
         // set at least title to see the notification bar on iOS.
         _audioPlayer.setNotification(
-            title: 'App Name',
-            artist: 'Artist or blank',
-            albumTitle: 'Name or blank',
-            imageUrl: 'url or blank',
+            title: '寻乐中国',
+            artist: 'Artist or 李二狗',
+            albumTitle: 'Name or 李二狗',
+            imageUrl: 'liyichuan.top',
             forwardSkipInterval: const Duration(seconds: 30), // default is 30s
             backwardSkipInterval: const Duration(seconds: 30), // default is 30s
             duration: duration,
@@ -163,6 +163,8 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
           child: Stack(
             children: [
               Slider(
+                activeColor: Colors.red,
+                inactiveColor: Colors.white,
                 onChanged: (v) {
                   final Position = v * _duration.inMilliseconds;
                   _audioPlayer.seek(Duration(milliseconds: Position.round()));

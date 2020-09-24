@@ -1,7 +1,7 @@
 import 'package:delicious/core/model/home_rank_model.dart';
 import 'package:delicious/ui/pages/home/content_list.dart';
-import 'package:delicious/ui/pages/music/player.dart';
 import 'package:delicious/ui/widgets/img_replace.dart';
+import 'package:delicious/ui/widgets/player.dart';
 import 'package:flutter/material.dart';
 import 'package:delicious/core/fitscreen/int_screen.dart';
 

@@ -1,6 +1,4 @@
-import 'package:delicious/core/model/home_rank_model.dart';
-import 'package:delicious/core/model/search/search_result_model.dart';
-import 'package:delicious/ui/pages/music/player.dart';
+import 'package:delicious/ui/widgets/player.dart';
 import 'package:flutter/material.dart';
 
 import 'img_replace.dart';
@@ -27,11 +25,12 @@ class SongsDetail extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 50,
+              height: 30,
             ),
             btn(context),
+            musictitle(arguments),
             SizedBox(
-              height: 150,
+              height: 100,
             ),
             musicPic(arguments),
             SizedBox(
@@ -44,30 +43,28 @@ class SongsDetail extends StatelessWidget {
     );
   }
 
+  Widget musictitle(_music) {
+    return Container(
+      width: 300,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      decoration: BoxDecoration(
+          // borderRadius: BorderRadius.circular(6),
+          color: Colors.black54),
+      child: Text(
+        "${_music['title']}--${_music['subtitle']}",
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
   Widget musicPic(music) {
     final _music = music;
     return Stack(
       children: [
         ClipRRect(
-          // borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(100),
           child: ImageReplace(
             url: _music['cover'],
-          ),
-        ),
-        Positioned(
-          right: 0,
-          bottom: 0,
-          left: 0,
-          child: Container(
-            width: 300,
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-                // borderRadius: BorderRadius.circular(6),
-                color: Colors.black54),
-            child: Text(
-              "${_music['title']}--${_music['subtitle']}",
-              style: TextStyle(color: Colors.white),
-            ),
           ),
         ),
       ],

@@ -18,7 +18,8 @@ class _SearchContentState extends State<SearchContent> {
   final List<Hot> hotLists = [];
   bool flag = true;
   GlobalKey<KeywordShowState> textKey = GlobalKey();
-
+  Duration durationTime = Duration(seconds: 2);
+  Timer timer;
   @override
   void initState() {
     super.initState();
@@ -60,7 +61,13 @@ class _SearchContentState extends State<SearchContent> {
       width: double.infinity,
       child: TextField(
         onChanged: (key) {
-          textKey.currentState.onPressed(key);
+          // if (key.trim().length < 1) return;
+          setState(() {
+            timer?.cancel();
+            timer = new Timer(durationTime, () {
+              textKey.currentState.onPressed(key);
+            });
+          });
           if (key != '') {
             setState(() {
               this.flag = false;
@@ -72,7 +79,8 @@ class _SearchContentState extends State<SearchContent> {
           }
         },
         onSubmitted: (value) {
-            Navigator.of(context).pushNamed(MySongs.routerName,arguments: {'text':value});
+          Navigator.of(context)
+              .pushNamed(MySongs.routerName, arguments: {'text': value});
         },
         decoration: InputDecoration(
           fillColor: Color(0x30cccccc),
