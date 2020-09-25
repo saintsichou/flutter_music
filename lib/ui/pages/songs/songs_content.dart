@@ -17,7 +17,7 @@ class _SongsContentState extends State<SongsContent> {
   int row = 20;
   bool isLoadmore = false;
   ScrollController _scrollController = new ScrollController();
-
+  
   @override
   void initState() {
     // TODO: implement initState
