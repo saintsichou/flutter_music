@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:delicious/ui/widgets/player.dart';
 import 'package:flutter/material.dart';
 
+import 'btn_widget.dart';
 import 'img_replace.dart';
 
 class SongsDetail extends StatefulWidget {
@@ -137,11 +138,16 @@ class _SongsDetailState extends State<SongsDetail>
         width: double.infinity,
         padding: EdgeInsets.all(20),
         alignment: Alignment.topLeft,
-        child: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              print('object');
+        child: Row(
+          children: [
+            icon_btn(Icons.arrow_back,() {
               Navigator.of(context).pop();
-            }));
+            }),
+            icon_btn(Icons.home,() {
+              //删除所有路由直达home路由
+              Navigator.of(context).pushNamedAndRemoveUntil('/',(Route route)=>false);
+            }),
+          ],
+        ));
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 
+import 'btn_widget.dart';
+
 class AudioPlaybackPage extends StatefulWidget {
   String _url;
   final Function callBack;
@@ -88,6 +90,8 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
 //          _onComplete();
       setState(() {
         _position = Duration();
+        _flag = false;
+        widget.callBack(false);
       });
     });
 
@@ -213,14 +217,5 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
         )
       ],
     ));
-  }
-
-  Widget icon_btn(ico, Function handle) {
-    return IconButton(
-        icon: Icon(
-          ico,
-          color: Colors.white,
-        ),
-        onPressed: handle);
   }
 }
