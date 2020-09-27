@@ -38,8 +38,8 @@ class _ImageReplaceState extends State<ImageReplace> {
           if (frame == null) {
             return Image.asset(
               'assets/images/bg.jpg',
-              height: 200,
-              width: 200,
+              height: widget.h,
+              width: widget.w,
               fit: BoxFit.cover,
             );
           }

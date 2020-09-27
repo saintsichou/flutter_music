@@ -1,5 +1,6 @@
 import 'package:delicious/core/http/home_api.dart';
 import 'package:delicious/core/model/home_rank_model.dart';
+import 'package:delicious/ui/widgets/img_replace.dart';
 import 'package:delicious/ui/widgets/songs_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -34,8 +35,8 @@ class MusicList extends StatelessWidget {
                         //     });
                       },
                       child: ListTile(
-                        leading: Image.network(
-                            '${rankLists[index].picS}??${rankLists[index].picM}'),
+                        // leading: Image.network('${rankLists[index].picS}'),
+                        leading: ImageReplace(url:'${rankLists[index].picS}',w: 50,),
                         title: Text('${rankLists[index].songName}'),
                         subtitle: Text('${rankLists[index].relationTitle}'),
                       ));

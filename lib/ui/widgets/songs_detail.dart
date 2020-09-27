@@ -25,23 +25,26 @@ class _SongsDetailState extends State<SongsDetail>
     // TODO: implement initState
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
+        AnimationController(vsync: this, duration: Duration(seconds: 8));
     _animation = CurvedAnimation(parent: _controller, curve: Curves.linear);
-    _rotate = Tween(begin: 50.0, end: 100.0).animate(_animation);
-    _controller.addStatusListener((status) {
+    _rotate = Tween(begin: 0.0, end: 2 * pi).animate(_controller);
+
+    _rotate.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _controller.forward();
+        //循环执行动画
+        _controller.repeat();
       } else if (status == AnimationStatus.dismissed) {
         _controller.forward();
       }
     });
+    _controller.forward();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
+    _controller.stop();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -72,7 +75,17 @@ class _SongsDetailState extends State<SongsDetail>
             SizedBox(
               height: 10,
             ),
-            AudioPlaybackPage(widget.arguments['mp3'])
+            AudioPlaybackPage(
+              widget.arguments['mp3'],
+              callBack: (flag) {
+                //从自组件传值出来
+                if (flag) {
+                  _controller.forward();
+                } else {
+                  _controller.stop();
+                }
+              },
+            )
           ],
         ),
       ),
@@ -95,21 +108,27 @@ class _SongsDetailState extends State<SongsDetail>
 
   Widget musicPic(music) {
     final _music = music;
-    return Transform(
-      transform: Matrix4.rotationZ(pi),
-        alignment: Alignment.center,
-        child: Container(
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: ImageReplace(
-                url: _music['cover'],
-              ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (ctx, child) {
+        return Transform(
+          transform: Matrix4.rotationZ(_rotate.value),
+          alignment: Alignment.center,
+          child: Container(
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: ImageReplace(
+                    url: _music['cover'],
+                    w: 200,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 

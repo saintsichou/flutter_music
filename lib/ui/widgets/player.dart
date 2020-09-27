@@ -4,7 +4,8 @@ import 'package:audioplayers/audioplayers.dart';
 
 class AudioPlaybackPage extends StatefulWidget {
   String _url;
-  AudioPlaybackPage(this._url);
+  final Function callBack;
+  AudioPlaybackPage(this._url, {this.callBack});
 
   @override
   _AudioPlaybackPageState createState() => _AudioPlaybackPageState();
@@ -22,6 +23,7 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
   StreamSubscription _playerCompleteSubscription;
   StreamSubscription _playerErrorSubscription;
   StreamSubscription _playerStateSubscription;
+  bool _flag;
 
   get _durationText => _duration?.toString()?.split('.')?.first ?? '';
   get _positionText => _position?.toString()?.split('.')?.first ?? '';
@@ -31,11 +33,13 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
     super.initState();
     url = widget._url;
     _initAudioPlayer();
+    _flag = true;
   }
 
   @override
   void dispose() {
     //释放
+    print('释放了吗');
     _audioPlayer.dispose();
     _durationSubscription?.cancel();
     _positionSubscription?.cancel();
@@ -182,24 +186,41 @@ class _AudioPlaybackPageState extends State<AudioPlaybackPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-                icon_btn(Icons.play_arrow, () {
-                  _play();
-                }),
-                icon_btn(Icons.pause, () {
-                  _pause();
-                }),
-                icon_btn(Icons.stop, () {
-                  _stop();
-                })
+            icon_btn(Icons.skip_previous, () {
+              _play();
+            }),
+            _flag
+                ? icon_btn(Icons.pause, () {
+                    _pause();
+                    setState(() {
+                      _flag = false;
+                      widget.callBack(false);
+                    });
+                  })
+                : icon_btn(Icons.play_arrow, () {
+                    _play();
+                    setState(() {
+                      setState(() {
+                        _flag = true;
+                        widget.callBack(true);
+                      });
+                    });
+                  }),
+            icon_btn(Icons.skip_next, () {
+              _stop();
+            })
           ],
         )
       ],
     ));
   }
 
-  Widget icon_btn(ico,Function handle) {
+  Widget icon_btn(ico, Function handle) {
     return IconButton(
-        icon: Icon(ico,color: Colors.white,),
-        onPressed:handle);
+        icon: Icon(
+          ico,
+          color: Colors.white,
+        ),
+        onPressed: handle);
   }
 }
