@@ -29,6 +29,7 @@ class _ImageReplaceState extends State<ImageReplace> {
         widget.url,
         width: widget.w,
         height: widget.h,
+        fit: BoxFit.fill,
         frameBuilder: (
           BuildContext context,
           Widget child,

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:delicious/core/http/search_api.dart';
+import 'package:delicious/ui/widgets/img_replace.dart';
 import 'package:delicious/ui/widgets/songs_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -92,10 +93,11 @@ class _SongsContentState extends State<SongsContent> {
       width: double.infinity,
       height: 150,
       child: ClipRRect(
-        child: Image.network(
-          songlist[0].cover != null ? songlist[0].cover : songlist[1].cover,
-          fit: BoxFit.cover,
-        ),
+        // child: Image.network(
+        //   songlist[0].cover != null ? songlist[0].cover : songlist[1].cover,
+        //   fit: BoxFit.cover,
+        // ),
+        child:ImageReplace(url:songlist[1].cover)
       ),
     );
   }
